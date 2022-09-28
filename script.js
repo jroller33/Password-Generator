@@ -3,14 +3,22 @@ var passwordText = document.querySelector("#password");
 
 function writePassword(event) {
   event.preventDefault();
-  let lengthQuestion = window.prompt("What is the length of your password?");
-  console.log(lengthQuestion);
-
+  
   const lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
   const upperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const numbers = "0123456789";
   const spChar = "@%+\\/'!#$^?:,)({}[]~-_.";
-
+  
+  function passwordLength() {
+    let lengthQuestion = window.prompt("What is the length of your password?");
+    if (lengthQuestion < 8 || lengthQuestion > 128) {
+      window.alert("Password length must be between 8 and 128 characters. Try again");
+      passwordLength();
+    }
+    return lengthQuestion;
+  }
+  passwordLength();
+  
   let lowerCaseQuestion = window.prompt("Do you want lower case letters? Type yes or no");
   let upperCaseQuestion = window.prompt("Do you want upper case letters? Type yes or no");
   let numberQuestion = window.prompt("Do you want numbers? Type yes or no");
