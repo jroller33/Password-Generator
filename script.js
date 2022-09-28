@@ -1,4 +1,5 @@
 var generateBtn = document.querySelector("#generate");
+var passwordText = document.querySelector("#password");
 
 function writePassword(event) {
   event.preventDefault();
@@ -6,31 +7,31 @@ function writePassword(event) {
   console.log(lengthQuestion);
 
   const lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
-  const upperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";  
+  const upperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const numbers = "0123456789";
   const spChar = "@%+\\/'!#$^?:,)({}[]~-_.";
-
-  let passwordChars = "";
 
   let lowerCaseQuestion = window.prompt("Do you want lower case letters? Type yes or no");
   let upperCaseQuestion = window.prompt("Do you want upper case letters? Type yes or no");
   let numberQuestion = window.prompt("Do you want numbers? Type yes or no");
   let spCharQuestion = window.prompt("Do you want special characters? Type yes or no");
-  if (lowerCaseQuestion.toLowerCase() == "yes") {
-    passwordChars += lowerCaseLetters;
-  } else if (upperCaseQuestion.toLowerCase() == "yes") {
-    passwordChars += upperCaseLetters;
-  } else if (numberQuestion.toLowerCase() == "yes") {
-    passwordChars += numbers;
-  } else if (spCharQuestion.toLowerCase() == "yes") {
-    passwordChars += spChar;
-  } else {
-    console.log('if/else error');
+  
+  function generatePassword() {
+    let passwordChars = "";
+    (lowerCaseQuestion.toLowerCase() == "yes") ? (passwordChars += lowerCaseLetters) : "";
+    (upperCaseQuestion.toLowerCase() == "yes") ? (passwordChars += upperCaseLetters) : "";
+    (numberQuestion.toLowerCase() == "yes") ? (passwordChars += numbers) : "";
+    (spCharQuestion.toLowerCase() == "yes") ? (passwordChars += spChar) : "";
+
+    let password = "";
+    for (let i = 0; i < lengthQuestion; i++) {
+      password += passwordChars.charAt(
+        Math.floor(Math.random() * passwordChars.length)
+      );
+    }
+    return password;
   }
-  console.log(passwordChars);
+  passwordText.value = generatePassword();
 }
-
-
-var passwordText = document.querySelector("#password");
-passwordText.value = password;
+          
 generateBtn.addEventListener("click", writePassword);
